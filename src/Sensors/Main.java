@@ -1,6 +1,8 @@
 
 package Sensors;
 
+import nwstcrpi.frmMain;
+
 
 /**
  *
@@ -12,6 +14,8 @@ public class Main {
         
         mainSensors s1 = new mainSensors();
         s1.setVisible(true);
+        
+        
         
         //warningWindow w1 = new warningWindow();
         //w1.setVisible(true);

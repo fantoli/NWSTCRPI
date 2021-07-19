@@ -199,7 +199,7 @@
                       <Component id="jTextField8" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jCheckBox3" pref="24" max="32767" attributes="0"/>
+                      <Component id="jCheckBox3" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
@@ -421,14 +421,30 @@
         <Component class="javax.swing.JComboBox" name="jComboBox2">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="4">
-                <StringItem index="0" value="GPIO 22"/>
-                <StringItem index="1" value="GPIO 13"/>
-                <StringItem index="2" value="GPIO 23"/>
-                <StringItem index="3" value="GPIO 24"/>
+              <StringArray count="17">
+                <StringItem index="0" value="GPIO 4"/>
+                <StringItem index="1" value="GPIO 17"/>
+                <StringItem index="2" value="GPIO 27"/>
+                <StringItem index="3" value="GPIO 22"/>
+                <StringItem index="4" value="GPIO 5"/>
+                <StringItem index="5" value="GPIO 6"/>
+                <StringItem index="6" value="GPIO 13"/>
+                <StringItem index="7" value="GPIO 19"/>
+                <StringItem index="8" value="GPIO 26"/>
+                <StringItem index="9" value="GPIO 18"/>
+                <StringItem index="10" value="GPIO 23"/>
+                <StringItem index="11" value="GPIO 24"/>
+                <StringItem index="12" value="GPIO 25"/>
+                <StringItem index="13" value="GPIO 12"/>
+                <StringItem index="14" value="GPIO 16"/>
+                <StringItem index="15" value="GPIO 20"/>
+                <StringItem index="16" value="GPIO 21"/>
               </StringArray>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox2ActionPerformed"/>
+          </Events>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>

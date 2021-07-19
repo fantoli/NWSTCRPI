@@ -27,6 +27,8 @@ public class frmMain extends javax.swing.JFrame {
      */
     public frmMain() {
         initComponents();
+        
+        
         try {
             this.txtTemperature.setText("");
             this.txtHumidity.setText("");
