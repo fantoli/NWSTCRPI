@@ -211,7 +211,10 @@ public class serverConnection extends javax.swing.JFrame {
             //guarda en una memoria temporal la infomación anotada en los textfield
             //y genera el archivo solicitado
             BufferedWriter escritor = new BufferedWriter(ubicacion);
-            escritor.write(txtFrequency.getText() + " " + txtDuration.getText());          
+            escritor.write(txtFrequency.getText()); 
+            //salto de linea
+            escritor.newLine();
+            escritor.write(txtDuration.getText());
             escritor.close();
             JOptionPane.showMessageDialog(null, "Archivo guardado con éxito");
         }catch(Exception ex){
