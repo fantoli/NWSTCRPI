@@ -45,7 +45,7 @@ public class serverConnection extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         txtDuration = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         txtNombre = new javax.swing.JTextField();
 
@@ -98,10 +98,10 @@ public class serverConnection extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Run");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnSave.setText("Run");
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnSaveActionPerformed(evt);
             }
         });
 
@@ -129,7 +129,7 @@ public class serverConnection extends javax.swing.JFrame {
                                     .addComponent(txtDuration, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(13, 13, 13)
-                                        .addComponent(jButton2))))
+                                        .addComponent(btnSave))))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -157,7 +157,7 @@ public class serverConnection extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnSave))
                 .addContainerGap(90, Short.MAX_VALUE))
         );
 
@@ -195,7 +195,7 @@ public class serverConnection extends javax.swing.JFrame {
         }  
     }//GEN-LAST:event_txtFrequencyKeyTyped
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         String nombreArchivo = txtNombre.getText();
         //directorio activo que está usando el usuario
         String carpeta = System.getProperty("user.dir");
@@ -208,17 +208,16 @@ public class serverConnection extends javax.swing.JFrame {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE,null,ex);
         }
         try{
-            //guarda en una memoria temporal la infomación anotada en lo textfield
+            //guarda en una memoria temporal la infomación anotada en los textfield
             //y genera el archivo solicitado
             BufferedWriter escritor = new BufferedWriter(ubicacion);
-            escritor.write(txtFrequency.getText());
-            escritor.write(txtDuration.getText());
+            escritor.write(txtFrequency.getText() + " " + txtDuration.getText());          
             escritor.close();
             JOptionPane.showMessageDialog(null, "Archivo guardado con éxito");
         }catch(Exception ex){
         JOptionPane.showMessageDialog(null, "Error al guardar el archivo");
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -256,8 +255,8 @@ public class serverConnection extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnSave;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
