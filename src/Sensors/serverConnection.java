@@ -241,10 +241,11 @@ public class serverConnection extends javax.swing.JFrame {
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
       DOMSource source = new DOMSource(doc);
-      String strRuta = "D:\\Profiles\\Documentos\\fantoli\\Documents\\NetBeansProjects\\NWSTCRPI\\results.xml";
+      String username = System.getProperty("user.name");
+      String strRuta = "D:\\Profiles\\Documentos\\" + username + "\\Documents\\NetBeansProjects\\NWSTCRPI\\results.xml";
       StreamResult result = new StreamResult(new File(strRuta));
       transformer.transform(source, result);
-      JOptionPane.showMessageDialog(null, "XML guardado en la ruta:" + strRuta);
+      JOptionPane.showMessageDialog(null, "XML guardado en la ruta: " + strRuta);
     } catch (ParserConfigurationException pce) {
       pce.printStackTrace();
     } catch (TransformerException tfe) {
