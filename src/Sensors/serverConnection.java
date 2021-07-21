@@ -209,6 +209,7 @@ public class serverConnection extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
          try {
+      //Con estas instrucciones se obtiene en memoria el contenido completo del fichero XML
       DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
       DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
       //Elemento raíz
@@ -218,6 +219,8 @@ public class serverConnection extends javax.swing.JFrame {
       //Primer elemento
       Element elemento1 = doc.createElement("configuration");
       rootElement.appendChild(elemento1);
+      //Hay métodos de la clase Document que permiten la creación de cada uno 
+      //de los posibles tipos de nodos admitidos por XML como CreateElement o CreateAttribute
       //Se agrega un atributo al nodo frequency y su valor
       Attr attr = doc.createAttribute("id");
       attr.setValue("config");
@@ -233,6 +236,8 @@ public class serverConnection extends javax.swing.JFrame {
       duration.setTextContent(txtDuration.getText());
       rootElement.appendChild(duration);
       //Se escribe el contenido del XML en un archivo
+      //Para realizar cualquiera de esas operaciones, es necesario crear previamente un 
+      //transformador al que se le indique el documento y el destino que se le va a dar.
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
       DOMSource source = new DOMSource(doc);
