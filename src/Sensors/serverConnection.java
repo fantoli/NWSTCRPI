@@ -225,12 +225,10 @@ public class serverConnection extends javax.swing.JFrame {
       Attr attr = doc.createAttribute("id");
       attr.setValue("config");
       elemento1.setAttributeNode(attr);
-      
       //Con frequency
       Element frequency = doc.createElement("frequency");
       frequency.setTextContent(txtFrequency.getText());
       rootElement.appendChild(frequency);
-      
       //Con duration
       Element duration = doc.createElement("duration");
       duration.setTextContent(txtDuration.getText());
@@ -245,11 +243,13 @@ public class serverConnection extends javax.swing.JFrame {
       String strRuta = "D:\\Profiles\\Documentos\\" + username + "\\Documents\\NetBeansProjects\\NWSTCRPI\\results.xml";
       StreamResult result = new StreamResult(new File(strRuta));
       transformer.transform(source, result);
-      JOptionPane.showMessageDialog(null, "XML guardado en la ruta: " + strRuta);
+      JOptionPane.showMessageDialog(null, "XML guardado en la ruta: " + strRuta, "Guardado", JOptionPane.INFORMATION_MESSAGE);
     } catch (ParserConfigurationException pce) {
       pce.printStackTrace();
+      
     } catch (TransformerException tfe) {
       tfe.printStackTrace();
+      JOptionPane.showMessageDialog(null, "Error al guardar el XML, no existe la ruta", "Error", JOptionPane.WARNING_MESSAGE);
     }
     }//GEN-LAST:event_btnSaveActionPerformed
 
