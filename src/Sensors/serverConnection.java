@@ -13,6 +13,17 @@ import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+import org.w3c.dom.Attr;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -116,33 +127,34 @@ public class serverConnection extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 432, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(104, 104, 104)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2))
+                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFrequency, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDuration, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtFrequency, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtDuration, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(13, 13, 13)
-                                        .addComponent(btnSave))))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(13, 13, 13)
+                                .addComponent(btnSave)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(114, 114, 114)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -158,7 +170,7 @@ public class serverConnection extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
                     .addComponent(btnSave))
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(84, Short.MAX_VALUE))
         );
 
         pack();
@@ -196,30 +208,42 @@ public class serverConnection extends javax.swing.JFrame {
     }//GEN-LAST:event_txtFrequencyKeyTyped
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        String nombreArchivo = txtNombre.getText();
-        //directorio activo que está usando el usuario
-        String carpeta = System.getProperty("user.dir");
-        //ruta donde se guarda el archivo
-        String direccionCompleta = carpeta + "/" + nombreArchivo + ".txt";
-        FileWriter ubicacion = null;
-        try{
-            ubicacion = new FileWriter(direccionCompleta);
-        }catch(IOException ex){
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE,null,ex);
-        }
-        try{
-            //guarda en una memoria temporal la infomación anotada en los textfield
-            //y genera el archivo solicitado
-            BufferedWriter escritor = new BufferedWriter(ubicacion);
-            escritor.write(txtFrequency.getText()); 
-            //salto de linea
-            escritor.newLine();
-            escritor.write(txtDuration.getText());
-            escritor.close();
-            JOptionPane.showMessageDialog(null, "Archivo guardado con éxito");
-        }catch(Exception ex){
-        JOptionPane.showMessageDialog(null, "Error al guardar el archivo");
-        }
+         try {
+      DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+      //Elemento raíz
+      Document doc = docBuilder.newDocument();
+      Element rootElement = doc.createElement("root");
+      doc.appendChild(rootElement);
+      //Primer elemento
+      Element elemento1 = doc.createElement("configuration");
+      rootElement.appendChild(elemento1);
+      //Se agrega un atributo al nodo frequency y su valor
+      Attr attr = doc.createAttribute("id");
+      attr.setValue("config");
+      elemento1.setAttributeNode(attr);
+      
+      //Con frequency
+      Element frequency = doc.createElement("frequency");
+      frequency.setTextContent(txtFrequency.getText());
+      rootElement.appendChild(frequency);
+      
+      //Con duration
+      Element duration = doc.createElement("duration");
+      duration.setTextContent(txtDuration.getText());
+      rootElement.appendChild(duration);
+      //Se escribe el contenido del XML en un archivo
+      TransformerFactory transformerFactory = TransformerFactory.newInstance();
+      Transformer transformer = transformerFactory.newTransformer();
+      DOMSource source = new DOMSource(doc);
+      StreamResult result = new StreamResult(new File("D:\\Profiles\\Documentos\\fantoli\\Documents\\NetBeansProjects\\NWSTCRPI\\results.xml"));
+      transformer.transform(source, result);
+      JOptionPane.showMessageDialog(null, "XML guardado en la ruta:" + "D:\\Profiles\\Documentos\\fantoli\\Documents\\NetBeansProjects\\NWSTCRPI\\results.xml");
+    } catch (ParserConfigurationException pce) {
+      pce.printStackTrace();
+    } catch (TransformerException tfe) {
+      tfe.printStackTrace();
+    }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
