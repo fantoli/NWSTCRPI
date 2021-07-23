@@ -245,7 +245,7 @@ public class serverConnection extends javax.swing.JFrame {
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
       DOMSource source = new DOMSource(doc);
-      //Construción de la ruta
+      //Construcción de la ruta
       String username = System.getProperty("user.name");
       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
       LocalDate localDate = LocalDate.now();
@@ -253,7 +253,9 @@ public class serverConnection extends javax.swing.JFrame {
       DateTimeFormatter dtt = DateTimeFormatter.ofPattern("HH-mm");
       LocalTime localTime = LocalTime.now();
       
-      String strRuta = "D:\\Profiles\\Documentos\\" + username + "\\Documents\\NetBeansProjects\\NWSTCRPI\\results-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
+      String nombreArchivo = txtNombre.getText();
+      
+      String strRuta = "D:\\Profiles\\Documentos\\" + username + "\\Documents\\NetBeansProjects\\NWSTCRPI\\" + nombreArchivo + "-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
       StreamResult result = new StreamResult(new File(strRuta));
 //      if(!result.exists()){
 //          result.mkdirs();
