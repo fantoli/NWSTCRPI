@@ -5,7 +5,7 @@
  */
 package Sensors;
 
-import java.io.*;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -15,8 +15,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -246,29 +244,41 @@ public class serverConnection extends javax.swing.JFrame {
       Transformer transformer = transformerFactory.newTransformer();
       DOMSource source = new DOMSource(doc);
       //Construcción de la ruta
-      String username = System.getProperty("user.name");
+      
       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
       LocalDate localDate = LocalDate.now();
       
       DateTimeFormatter dtt = DateTimeFormatter.ofPattern("HH-mm");
       LocalTime localTime = LocalTime.now();
       
+      
       String nombreArchivo = txtNombre.getText();
-      
-      String strRuta = "D:\\Profiles\\Documentos\\" + username + "\\Documents\\NetBeansProjects\\NWSTCRPI\\" + nombreArchivo + "-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
+      String username = System.getProperty("user.name");
+      String strRuta = "D:\\Profiles\\Documentos\\" + username + "\\Documets\\NetBeansProjects\\NWSTCRPI\\" + nombreArchivo + "-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
       StreamResult result = new StreamResult(new File(strRuta));
-//      if(!result.exists()){
-//          result.mkdirs();
-//      }
-      
+ 
       transformer.transform(source, result);
       JOptionPane.showMessageDialog(null, "XML guardado en la ruta: " + strRuta, "Guardado", JOptionPane.INFORMATION_MESSAGE);
     } catch (ParserConfigurationException pce) {
       pce.printStackTrace();
       
     } catch (TransformerException tfe) {
+      DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+      LocalDate localDate = LocalDate.now();
+      
+      DateTimeFormatter dtt = DateTimeFormatter.ofPattern("HH-mm");
+      LocalTime localTime = LocalTime.now();
+      String nombreArchivo = txtNombre.getText();
+      String username = System.getProperty("user.name");
+      String strRuta = "D:\\Profiles\\Documentos\\" + username + "\\Documets\\NetBeansProjects\\NWSTCRPI\\" + nombreArchivo + "-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
       tfe.printStackTrace();
-      JOptionPane.showMessageDialog(null, "Error al guardar el XML, no existe la ruta", "Error", JOptionPane.WARNING_MESSAGE);
+      int result = JOptionPane.showConfirmDialog(null, "Error al guardar el XML, no existe la ruta. ¿Desea crear la ruta " + strRuta + " ?", null, JOptionPane.YES_NO_OPTION);
+      if(result == JOptionPane.YES_OPTION)
+      {
+          File f = new File(strRuta);
+          f.getParentFile().mkdirs();
+      } 
+              
     }
 
     }//GEN-LAST:event_btnSaveActionPerformed
