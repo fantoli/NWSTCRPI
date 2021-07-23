@@ -5,11 +5,16 @@
  */
 package Sensors;
 
+import java.io.*;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,6 +29,7 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
 
 
 /**
@@ -239,9 +245,20 @@ public class serverConnection extends javax.swing.JFrame {
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
       DOMSource source = new DOMSource(doc);
+      //Construción de la ruta
       String username = System.getProperty("user.name");
-      String strRuta = "D:\\Profiles\\Documentos\\" + username + "\\Documents\\NetBeansProjects\\NWSTCRPI\\results.xml";
+      DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
+      LocalDate localDate = LocalDate.now();
+      
+      DateTimeFormatter dtt = DateTimeFormatter.ofPattern("HH-mm");
+      LocalTime localTime = LocalTime.now();
+      
+      String strRuta = "D:\\Profiles\\Documentos\\" + username + "\\Documents\\NetBeansProjects\\NWSTCRPI\\results-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
       StreamResult result = new StreamResult(new File(strRuta));
+//      if(!result.exists()){
+//          result.mkdirs();
+//      }
+      
       transformer.transform(source, result);
       JOptionPane.showMessageDialog(null, "XML guardado en la ruta: " + strRuta, "Guardado", JOptionPane.INFORMATION_MESSAGE);
     } catch (ParserConfigurationException pce) {
@@ -251,6 +268,7 @@ public class serverConnection extends javax.swing.JFrame {
       tfe.printStackTrace();
       JOptionPane.showMessageDialog(null, "Error al guardar el XML, no existe la ruta", "Error", JOptionPane.WARNING_MESSAGE);
     }
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     /**
