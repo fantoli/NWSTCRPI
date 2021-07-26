@@ -243,6 +243,7 @@ public class serverConnection extends javax.swing.JFrame {
       //Se escribe el contenido del XML en un archivo
       //Para realizar cualquiera de esas operaciones, es necesario crear previamente un 
       //transformador al que se le indique el documento y el destino que se le va a dar.
+      //La clase Transformer para generará un archivo de texto con el contenido del XML.
       TransformerFactory transformerFactory = TransformerFactory.newInstance();
       Transformer transformer = transformerFactory.newTransformer();
       DOMSource source = new DOMSource(doc);
@@ -255,9 +256,9 @@ public class serverConnection extends javax.swing.JFrame {
       LocalTime localTime = LocalTime.now();
       
       String nombreArchivo = txtNombre.getText();
-      String XML = nombreArchivo + "-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
       String username = System.getProperty("user.name");
       String Ruta = "C:\\Users\\" + username + "\\";
+      String XML = nombreArchivo + "-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
       String strRuta = Ruta + XML;
       StreamResult result = new StreamResult(new File(strRuta));
  
