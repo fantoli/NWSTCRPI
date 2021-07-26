@@ -251,14 +251,14 @@ public class serverConnection extends javax.swing.JFrame {
       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
       LocalDate localDate = LocalDate.now();
       
-      DateTimeFormatter dtt = DateTimeFormatter.ofPattern("HH-mm");
+      DateTimeFormatter dtt = DateTimeFormatter.ofPattern("HH-mm-ss");
       LocalTime localTime = LocalTime.now();
       
-      
+      File[] roots = File.listRoots();
       String nombreArchivo = txtNombre.getText();
       String XML = nombreArchivo + "-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
       String username = System.getProperty("user.name");
-      String Ruta = "D:\\Profiles\\Documentos\\" + username + "\\Documents\\NetBeansProjects\\NWSTCRPI\\";
+      String Ruta = "C:\\Users\\" + username + "\\";
       String strRuta = Ruta + XML;
       StreamResult result = new StreamResult(new File(strRuta));
  
@@ -274,12 +274,12 @@ public class serverConnection extends javax.swing.JFrame {
       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
       LocalDate localDate = LocalDate.now();
       
-      DateTimeFormatter dtt = DateTimeFormatter.ofPattern("HH-mm");
+      DateTimeFormatter dtt = DateTimeFormatter.ofPattern("HH-mm-ss");
       LocalTime localTime = LocalTime.now();
       String nombreArchivo = txtNombre.getText();
       String XML = nombreArchivo + "-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
       String username = System.getProperty("user.name");
-      String Ruta = "D:\\Profiles\\Documentos\\" + username + "\\Documents\\NetBeansProjects\\NWSTCRPI\\";
+      String Ruta = "C:\\Users\\" + username;
       String strRuta = Ruta + XML;
       tfe.printStackTrace();
       int warning = JOptionPane.showConfirmDialog(null, "Error al guardar el XML, no existe la ruta. ¿Desea crear la ruta " + strRuta + " ?", null, JOptionPane.YES_NO_OPTION);
@@ -318,6 +318,7 @@ public class serverConnection extends javax.swing.JFrame {
       StreamResult result = new StreamResult(new File(strRuta));
  
       transformer.transform(source, result);
+      JOptionPane.showMessageDialog(null, "XML guardado en la ruta: " + strRuta, "Guardado", JOptionPane.INFORMATION_MESSAGE);
               
           } catch (ParserConfigurationException ex) {
               Logger.getLogger(serverConnection.class.getName()).log(Level.SEVERE, null, ex);
