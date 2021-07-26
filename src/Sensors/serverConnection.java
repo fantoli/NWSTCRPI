@@ -254,7 +254,6 @@ public class serverConnection extends javax.swing.JFrame {
       DateTimeFormatter dtt = DateTimeFormatter.ofPattern("HH-mm-ss");
       LocalTime localTime = LocalTime.now();
       
-      File[] roots = File.listRoots();
       String nombreArchivo = txtNombre.getText();
       String XML = nombreArchivo + "-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
       String username = System.getProperty("user.name");
