@@ -15,11 +15,14 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
@@ -106,14 +109,14 @@ public class serverConnection extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Stop");
+        jButton1.setText("Close");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
 
-        btnSave.setText("Run");
+        btnSave.setText("Save");
         btnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaveActionPerformed(evt);
@@ -253,8 +256,10 @@ public class serverConnection extends javax.swing.JFrame {
       
       
       String nombreArchivo = txtNombre.getText();
+      String XML = nombreArchivo + "-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
       String username = System.getProperty("user.name");
-      String strRuta = "D:\\Profiles\\Documentos\\" + username + "\\Documets\\NetBeansProjects\\NWSTCRPI\\" + nombreArchivo + "-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
+      String Ruta = "D:\\Profiles\\Documentos\\" + username + "\\Documents\\NetBeansProjects\\NWSTCRPI\\";
+      String strRuta = Ruta + XML;
       StreamResult result = new StreamResult(new File(strRuta));
  
       transformer.transform(source, result);
@@ -263,20 +268,65 @@ public class serverConnection extends javax.swing.JFrame {
       pce.printStackTrace();
       
     } catch (TransformerException tfe) {
+       
+        
+     
       DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
       LocalDate localDate = LocalDate.now();
       
       DateTimeFormatter dtt = DateTimeFormatter.ofPattern("HH-mm");
       LocalTime localTime = LocalTime.now();
       String nombreArchivo = txtNombre.getText();
+      String XML = nombreArchivo + "-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
       String username = System.getProperty("user.name");
-      String strRuta = "D:\\Profiles\\Documentos\\" + username + "\\Documets\\NetBeansProjects\\NWSTCRPI\\" + nombreArchivo + "-"+ dtf.format(localDate) + "-" + dtt.format(localTime) + ".xml";
+      String Ruta = "D:\\Profiles\\Documentos\\" + username + "\\Documents\\NetBeansProjects\\NWSTCRPI\\";
+      String strRuta = Ruta + XML;
       tfe.printStackTrace();
-      int result = JOptionPane.showConfirmDialog(null, "Error al guardar el XML, no existe la ruta. ¿Desea crear la ruta " + strRuta + " ?", null, JOptionPane.YES_NO_OPTION);
-      if(result == JOptionPane.YES_OPTION)
+      int warning = JOptionPane.showConfirmDialog(null, "Error al guardar el XML, no existe la ruta. ¿Desea crear la ruta " + strRuta + " ?", null, JOptionPane.YES_NO_OPTION);
+      if(warning == JOptionPane.YES_OPTION)
       {
-          File f = new File(strRuta);
-          f.getParentFile().mkdirs();
+          File directorio = new File(Ruta);
+          directorio.mkdirs();
+          File archivo = new File(Ruta,XML);
+          try {
+              //Mismo codigo que en btnSave Action Performance
+      DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+      DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+      
+      Document doc = docBuilder.newDocument();
+      Element rootElement = doc.createElement("root");
+      doc.appendChild(rootElement);
+      
+      Element elemento1 = doc.createElement("configuration");
+      rootElement.appendChild(elemento1);
+      
+      Attr attr = doc.createAttribute("id");
+      attr.setValue("config");
+      elemento1.setAttributeNode(attr);
+      
+      Element frequency = doc.createElement("frequency");
+      frequency.setTextContent(txtFrequency.getText());
+      rootElement.appendChild(frequency);
+      
+      Element duration = doc.createElement("duration");
+      duration.setTextContent(txtDuration.getText());
+      rootElement.appendChild(duration);
+      
+      TransformerFactory transformerFactory = TransformerFactory.newInstance();
+      Transformer transformer = transformerFactory.newTransformer();
+      DOMSource source = new DOMSource(doc);
+      StreamResult result = new StreamResult(new File(strRuta));
+ 
+      transformer.transform(source, result);
+              
+          } catch (ParserConfigurationException ex) {
+              Logger.getLogger(serverConnection.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (TransformerConfigurationException ex) {
+              Logger.getLogger(serverConnection.class.getName()).log(Level.SEVERE, null, ex);
+          } catch (TransformerException ex) {
+              Logger.getLogger(serverConnection.class.getName()).log(Level.SEVERE, null, ex);
+          }
+              
       } 
               
     }
