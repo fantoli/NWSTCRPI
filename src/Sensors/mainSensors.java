@@ -1,30 +1,7 @@
 package Sensors;
 import static java.lang.System.console;
 import Sensors.serverConnection;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-import org.w3c.dom.Attr;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+
 /**
  * @author amartinez
  */
@@ -69,12 +46,11 @@ public class mainSensors extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         label2 = new java.awt.Label();
         label3 = new java.awt.Label();
-        txtTemperature = new javax.swing.JTextField();
-        txtHumidity = new javax.swing.JTextField();
+        jTextField4 = new javax.swing.JTextField();
+        jTextField5 = new javax.swing.JTextField();
         jComboBox2 = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        btnSaveReadings = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -242,15 +218,15 @@ public class mainSensors extends javax.swing.JFrame {
 
         label3.setText("Pin");
 
-        txtTemperature.addActionListener(new java.awt.event.ActionListener() {
+        jTextField4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTemperatureActionPerformed(evt);
+                jTextField4ActionPerformed(evt);
             }
         });
 
-        txtHumidity.addActionListener(new java.awt.event.ActionListener() {
+        jTextField5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtHumidityActionPerformed(evt);
+                jTextField5ActionPerformed(evt);
             }
         });
 
@@ -267,13 +243,6 @@ public class mainSensors extends javax.swing.JFrame {
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel8.setText("Humidity:");
         jLabel8.setToolTipText("");
-
-        btnSaveReadings.setText("Save");
-        btnSaveReadings.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnSaveReadingsActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -296,16 +265,13 @@ public class mainSensors extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnSaveReadings))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtHumidity, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(txtTemperature, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(354, 354, 354))))
         );
         jPanel2Layout.setVerticalGroup(
@@ -318,17 +284,15 @@ public class mainSensors extends javax.swing.JFrame {
                     .addComponent(label3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtTemperature, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtHumidity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(btnSaveReadings)
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
 
         jMenu1.setText("File");
@@ -383,13 +347,13 @@ public class mainSensors extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void txtTemperatureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTemperatureActionPerformed
+    private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtTemperatureActionPerformed
+    }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void txtHumidityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHumidityActionPerformed
+    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtHumidityActionPerformed
+    }//GEN-LAST:event_jTextField5ActionPerformed
 
     private void jTextField7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField7ActionPerformed
 
@@ -433,124 +397,6 @@ public class mainSensors extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
-    private void btnSaveReadingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveReadingsActionPerformed
-        
-        try {
-            //Con estas instrucciones se obtiene en memoria el contenido completo del fichero XML
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-            //Elemento raíz
-            Document doc = docBuilder.newDocument();
-            Element rootElement = doc.createElement("root");
-            doc.appendChild(rootElement);
-            //Primer elemento
-            Element elemento1 = doc.createElement("configuration");
-            rootElement.appendChild(elemento1);
-            //Hay métodos de la clase Document que permiten la creación de cada uno 
-            //de los posibles tipos de nodos admitidos por XML como CreateElement o CreateAttribute
-            //Se agrega un atributo al nodo frequency y su valor
-            Attr attr = doc.createAttribute("id");
-            attr.setValue("config");
-            elemento1.setAttributeNode(attr);
-            //Con frequency
-            Element temperature = doc.createElement("temperature");
-            temperature.setTextContent(txtTemperature.getText());
-            rootElement.appendChild(temperature);
-            //Con duration
-            Element humidity = doc.createElement("humidity");
-            humidity.setTextContent(txtHumidity.getText());
-            rootElement.appendChild(humidity);
-            //Se escribe el contenido del XML en un archivo
-            //Para realizar cualquiera de esas operaciones, es necesario crear previamente un 
-            //transformador al que se le indique el documento y el destino que se le va a dar.
-            //La clase Transformer para generará un archivo de texto con el contenido del XML.
-            TransformerFactory transformerFactory = TransformerFactory.newInstance();
-            Transformer transformer = transformerFactory.newTransformer();
-            DOMSource source = new DOMSource(doc);
-            //Construcción de la ruta
-
-//            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
-//            LocalDate localDate = LocalDate.now();
-//
-//            DateTimeFormatter dtt = DateTimeFormatter.ofPattern("HH-mm-ss");
-//            LocalTime localTime = LocalTime.now();
-//
-//            String nombreArchivo = txtNombre.getText();
-            String username = System.getProperty("user.name");
-            String Ruta = "C:\\Users\\" + username + "\\results\\";
-            String XML = "Reading_results.xml";
-            String strRuta = Ruta + XML;
-            StreamResult result = new StreamResult(new File(strRuta));
-
-            transformer.transform(source, result);
-            JOptionPane.showMessageDialog(null, "XML guardado en la ruta: " + strRuta, "Guardado", JOptionPane.INFORMATION_MESSAGE);
-        }catch(ParserConfigurationException pce) {
-            pce.printStackTrace();
-        }catch(TransformerException tfe) {
-       
-//            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("uuuu-MM-dd");
-//            LocalDate localDate = LocalDate.now();
-//
-//            DateTimeFormatter dtt = DateTimeFormatter.ofPattern("HH-mm-ss");
-//            LocalTime localTime = LocalTime.now();
-//            String nombreArchivo = txtNombre.getText();
-            String XML = "Reading_results.xml";
-            String username = System.getProperty("user.name");
-            String Ruta = "C:\\Users\\" + username + "\\results\\";
-            String strRuta = Ruta + XML;
-            tfe.printStackTrace();
-            
-            int warning = JOptionPane.showConfirmDialog(null, "Error al guardar el XML, no existe la ruta. ¿Desea crear la ruta " + strRuta + " ?", null, JOptionPane.YES_NO_OPTION);
-      
-            if(warning == JOptionPane.YES_OPTION)
-            {
-                File directorio = new File(Ruta);
-                directorio.mkdirs();
-                File archivo = new File(Ruta,XML);
-
-                try {
-                    //Mismo codigo que en btnSave Action Performance
-                    DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-                    DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-
-                    Document doc = docBuilder.newDocument();
-                    Element rootElement = doc.createElement("root");
-                    doc.appendChild(rootElement);
-
-                    Element elemento1 = doc.createElement("configuration");
-                    rootElement.appendChild(elemento1);
-
-                    Attr attr = doc.createAttribute("id");
-                    attr.setValue("config");
-                    elemento1.setAttributeNode(attr);
-
-                    Element temperature = doc.createElement("temperature");
-                    temperature.setTextContent(txtTemperature.getText());
-                    rootElement.appendChild(temperature);
-
-                    Element humidity = doc.createElement("humidity");
-                    humidity.setTextContent(txtHumidity.getText());
-                    rootElement.appendChild(humidity);
-
-                    TransformerFactory transformerFactory = TransformerFactory.newInstance();
-                    Transformer transformer = transformerFactory.newTransformer();
-                    DOMSource source = new DOMSource(doc);
-                    StreamResult result = new StreamResult(new File(strRuta));
-
-                    transformer.transform(source, result);
-                    JOptionPane.showMessageDialog(null, "XML guardado en la ruta: " + strRuta, "Guardado", JOptionPane.INFORMATION_MESSAGE);
-
-                } catch (ParserConfigurationException ex) {
-                    Logger.getLogger(serverConnection.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (TransformerConfigurationException ex) {
-                    Logger.getLogger(serverConnection.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (TransformerException ex) {
-                    Logger.getLogger(serverConnection.class.getName()).log(Level.SEVERE, null, ex);
-                }     
-            }  
-        }
-    }//GEN-LAST:event_btnSaveReadingsActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -588,7 +434,6 @@ public class mainSensors extends javax.swing.JFrame {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnSaveReadings;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox2;
@@ -614,12 +459,12 @@ public class mainSensors extends javax.swing.JFrame {
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField jTextField4;
+    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private java.awt.Label label3;
-    private javax.swing.JTextField txtHumidity;
-    private javax.swing.JTextField txtTemperature;
     // End of variables declaration//GEN-END:variables
 }
