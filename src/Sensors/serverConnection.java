@@ -244,7 +244,7 @@ public class serverConnection extends javax.swing.JFrame {
 //            String nombreArchivo = txtNombre.getText();
             String username = System.getProperty("user.name");
             String Ruta = "C:\\Users\\" + username + "\\results\\";
-            String XML = "results.xml";
+            String XML = "Settings_results.xml";
             String strRuta = Ruta + XML;
             StreamResult result = new StreamResult(new File(strRuta));
 
@@ -260,7 +260,7 @@ public class serverConnection extends javax.swing.JFrame {
 //            DateTimeFormatter dtt = DateTimeFormatter.ofPattern("HH-mm-ss");
 //            LocalTime localTime = LocalTime.now();
 //            String nombreArchivo = txtNombre.getText();
-            String XML = "results.xml";
+            String XML = "Settings_results.xml";
             String username = System.getProperty("user.name");
             String Ruta = "C:\\Users\\" + username + "\\results\\";
             String strRuta = Ruta + XML;
