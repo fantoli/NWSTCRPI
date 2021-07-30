@@ -418,7 +418,8 @@ public class mainSensors extends javax.swing.JFrame {
         
         String ftp = txtIP.getText(); // También puede ir la IP
 	String user = txtUser.getText();
-	String password = txtPass.getText();
+        String password = new String(txtPass.getPassword()); //Password encriptada
+        
         try {
 			// Conactando al servidor
 			client.connect(ftp);
@@ -433,8 +434,9 @@ public class mainSensors extends javax.swing.JFrame {
 			// Desconectandose con el servidor
 			client.disconnect();
 
+                        JOptionPane.showMessageDialog(null, "Conexión realizada con éxito");
 		} catch (IOException ioe) {
-
+                        JOptionPane.showMessageDialog(null, "No pudo conectarse con el servidor con los datos: IP = " + ftp + "; User = " + user + "; Pass = " + password);
 		}
     }//GEN-LAST:event_btnConnectActionPerformed
 
