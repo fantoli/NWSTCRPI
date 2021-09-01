@@ -18,7 +18,7 @@ public class clsLogger {
     private String _appName = "";
     private String _logDir = "";
     
-    protected clsLogger(String appName, String logDir) throws Exception {
+    public clsLogger(String appName, String logDir) throws Exception {
         _appName = appName;
         _logDir = logDir;
         // Por el tipo de programa, borramos el contenido del directorio de log
