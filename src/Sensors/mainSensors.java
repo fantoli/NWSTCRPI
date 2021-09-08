@@ -1,7 +1,8 @@
 package Sensors;
 import static java.lang.System.console;
 import Sensors.serverConnection;
-import NTC.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -13,6 +14,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -27,6 +30,8 @@ import org.apache.commons.net.ftp.FTPClient;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import nwstcrpi.clsPreferences;
+import nwstcrpi.Factory;
 /**
  * @author amartinez
  */
@@ -40,17 +45,70 @@ public class mainSensors extends javax.swing.JFrame {
    
     public mainSensors() throws Exception {
         initComponents();
+        clsPreferences _preferences;
+       
+        Factory Factory;
+        Factory = new Factory();
+       
+        _preferences = Factory.GetPreferences();
+       
         
-//        clsPreferences clsP = new clsPreferences();
-//        Factory fac = new Factory();
-//        
-//        txtDuration.setText();
-//        
-//        
-//        this.setLocationRelativeTo(null);
-//        
+        try {
+            this.txtPresent.setText(String.valueOf(_preferences.getDHT22_Present()));
+            this.txtTemperature.setText(String.valueOf(_preferences.getDHT22_SensorNumber_Temperature()));
+            this.txtHumidity.setText(String.valueOf(_preferences.getDHT22_SensorNumber_Humidity()));
+            this.txtSensor.setText(String.valueOf(_preferences.getDHT22_SensorPin()));
+            this.txtDuration.setText(String.valueOf(_preferences.getReadTimePeriod()));
+            this.txtEnabled.setText(String.valueOf(_preferences.getDHT22_Enabled()));
+            this.txtEnabled.setText(String.valueOf(_preferences.getMQ2_Present()));
+            
+   
+           
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), this.getTitle(), JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        }
+        
+        
+        this.setLocationRelativeTo(null);
+        
         
        
+    }
+    
+    public void SavePreferences() throws Exception{
+        
+       clsPreferences _preferences; 
+        
+       Factory Factory;
+       Factory = new Factory();
+       
+       _preferences = Factory.GetPreferences();
+       
+       _preferences.setDHT22_SensorNumber_Temperature(Integer.parseInt(txtTemperature.getText()));
+       _preferences.setDHT22_SensorNumber_Humidity(Integer.parseInt(txtHumidity.getText()));
+       _preferences.setDHT22_SensorPin(Integer.parseInt(txtSensor.getText()));
+       _preferences.setDHT22_Present(Boolean.parseBoolean(txtPresent.getText()));
+       _preferences.setDHT22_Enabled(Boolean.parseBoolean(txtEnabled.getText()));
+        
+          
+       Boolean isSelected = chkPresent.isSelected();
+       
+//       if(chkPresent.isSelected()){
+//           chkPresent.setSelected(_preferences.setDHT22_Enabled(T));
+//       } else {
+//           chkPresent.setSelected(_preferences.setDHT22_Enabled(Boolean.getBoolean(isSelected)));
+//       }
+       
+       
+        try {
+            _preferences.Save();
+        } catch (Exception ex) {
+            Logger.getLogger(mainSensors.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        System.out.println(_preferences.getDHT22_SensorNumber_Temperature());
+        
     }
 
     /**
@@ -85,15 +143,19 @@ public class mainSensors extends javax.swing.JFrame {
         txtDuration = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        txtName = new javax.swing.JTextField();
+        txtSensor = new javax.swing.JTextField();
         label2 = new java.awt.Label();
-        label3 = new java.awt.Label();
         txtTemperature = new javax.swing.JTextField();
         txtHumidity = new javax.swing.JTextField();
-        jComboBox2 = new javax.swing.JComboBox<>();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         btnSaveReadings = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        txtPresent = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        txtEnabled = new javax.swing.JTextField();
+        chkPresent = new javax.swing.JCheckBox();
+        chkEnabled = new javax.swing.JCheckBox();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -171,8 +233,18 @@ public class mainSensors extends javax.swing.JFrame {
 
         chkEnable.setSelected(true);
         chkEnable.setText("Enable");
+        chkEnable.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkEnableActionPerformed(evt);
+            }
+        });
 
         chkAnonimous.setText("Anonimous");
+        chkAnonimous.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkAnonimousActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Passive:");
 
@@ -255,10 +327,10 @@ public class mainSensors extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtPass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(chkShowPassword)))
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtDuration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
+                    .addComponent(jLabel3)
+                    .addComponent(txtDuration, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnClear)
@@ -269,17 +341,16 @@ public class mainSensors extends javax.swing.JFrame {
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setText("Name:");
+        jLabel2.setText("Sensor Pin:");
 
-        txtName.addActionListener(new java.awt.event.ActionListener() {
+        txtSensor.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameActionPerformed(evt);
+                txtSensorActionPerformed(evt);
             }
         });
 
+        label2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         label2.setText("Readings");
-
-        label3.setText("Pin");
 
         txtTemperature.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -290,13 +361,6 @@ public class mainSensors extends javax.swing.JFrame {
         txtHumidity.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtHumidityActionPerformed(evt);
-            }
-        });
-
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GPIO 4", "GPIO 17", "GPIO 27", "GPIO 22", "GPIO 5", "GPIO 6", "GPIO 13", "GPIO 19", "GPIO 26", "GPIO 18", "GPIO 23", "GPIO 24", "GPIO 25", "GPIO 12", "GPIO 16", "GPIO 20", "GPIO 21" }));
-        jComboBox2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox2ActionPerformed(evt);
             }
         });
 
@@ -314,60 +378,81 @@ public class mainSensors extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setText("DHT22 Attached (present):");
+
+        jLabel10.setText("Enabled:");
+
+        chkPresent.setText("present");
+
+        chkEnabled.setText("enabled");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 61, Short.MAX_VALUE)
-                    .addComponent(label3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
+                .addGap(21, 21, 21)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(394, 394, 394))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel10))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtSensor)
+                            .addComponent(txtPresent)
+                            .addComponent(txtEnabled, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(chkPresent)
+                            .addComponent(chkEnabled))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(68, 68, 68)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtHumidity, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtTemperature, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addComponent(btnSaveReadings))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtHumidity, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtTemperature, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(354, 354, 354))))
+                                .addComponent(btnSaveReadings)))
+                        .addGap(354, 354, 354))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(label3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(32, 32, 32)
+                .addGap(25, 25, 25)
+                .addComponent(label2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtTemperature, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSensor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtHumidity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnSaveReadings)
-                .addContainerGap(31, Short.MAX_VALUE))
+                    .addComponent(txtHumidity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel9)
+                    .addComponent(txtPresent, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(chkPresent))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtEnabled, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(btnSaveReadings)
+                        .addComponent(jLabel10)
+                        .addComponent(chkEnabled)))
+                .addContainerGap(69, Short.MAX_VALUE))
         );
 
         jMenu1.setText("File");
@@ -418,9 +503,9 @@ public class mainSensors extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     
-    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
+    private void txtSensorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSensorActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameActionPerformed
+    }//GEN-LAST:event_txtSensorActionPerformed
 
     private void txtTemperatureActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTemperatureActionPerformed
         // TODO add your handling code here:
@@ -434,11 +519,14 @@ public class mainSensors extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
-    private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox2ActionPerformed
-
     private void btnSaveReadingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveReadingsActionPerformed
+        try {
+            SavePreferences();
+        } catch (Exception ex) {
+            Logger.getLogger(mainSensors.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
         try {
             //Con estas instrucciones se obtiene en memoria el contenido completo del fichero XML
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
@@ -458,7 +546,7 @@ public class mainSensors extends javax.swing.JFrame {
             elemento1.setAttributeNode(attr);
             //Con name
             Element name = doc.createElement("name");
-            name.setTextContent(txtName.getText());
+            name.setTextContent(txtSensor.getText());
             rootElement.appendChild(name);
             //Con frequency
             Element temperature = doc.createElement("temperature");
@@ -601,6 +689,7 @@ public class mainSensors extends javax.swing.JFrame {
         txtIP.setText("");
         txtUser.setText("");
         txtPass.setText("");
+        txtPassive.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
 
     private void txtUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserActionPerformed
@@ -610,6 +699,59 @@ public class mainSensors extends javax.swing.JFrame {
     private void txtIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIPActionPerformed
 
     }//GEN-LAST:event_txtIPActionPerformed
+
+    
+    private void chkEnableActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEnableActionPerformed
+        chkEnable.setEnabled(true);
+        chkEnable.addItemListener(new ItemListener() {
+        public void itemStateChanged(ItemEvent e) {
+
+            if(e.getStateChange() == ItemEvent.SELECTED) {
+                txtDuration.setEnabled(true);
+                txtIP.setEnabled(true);
+                txtPassive.setEnabled(true);
+                txtUser.setEnabled(true);
+                txtPass.setEnabled(true);
+                chkAnonimous.setEnabled(true);
+                chkShowPassword.setEnabled(true);
+                
+            }
+            else if(e.getStateChange() == ItemEvent.DESELECTED){
+                txtDuration.setEnabled(false);
+                txtIP.setEnabled(false);
+                txtPassive.setEnabled(false);
+                txtUser.setEnabled(false);
+                txtPass.setEnabled(false);
+                chkAnonimous.setEnabled(false);
+                chkShowPassword.setEnabled(false);
+            }
+
+        }
+    });
+    }//GEN-LAST:event_chkEnableActionPerformed
+
+    private void chkAnonimousActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkAnonimousActionPerformed
+        chkAnonimous.addItemListener(new ItemListener() {
+        public void itemStateChanged(ItemEvent e) {
+
+            if(e.getStateChange() == ItemEvent.SELECTED) {
+                
+                txtUser.setEnabled(false);
+                txtPass.setEnabled(false);
+                chkShowPassword.setEnabled(false);
+                
+            }
+            else if(e.getStateChange() == ItemEvent.DESELECTED){
+                
+                txtUser.setEnabled(true);
+                txtPass.setEnabled(true);
+                chkShowPassword.setEnabled(true);
+               
+            }
+
+        }
+    });
+    }//GEN-LAST:event_chkAnonimousActionPerformed
 
     /**
      * @param args the command line arguments
@@ -657,9 +799,11 @@ public class mainSensors extends javax.swing.JFrame {
     private javax.swing.JButton btnSaveReadings;
     private javax.swing.JCheckBox chkAnonimous;
     private javax.swing.JCheckBox chkEnable;
+    private javax.swing.JCheckBox chkEnabled;
+    private javax.swing.JCheckBox chkPresent;
     private javax.swing.JCheckBox chkShowPassword;
-    private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -668,6 +812,7 @@ public class mainSensors extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JList<String> jList1;
     private javax.swing.JMenu jMenu1;
@@ -680,14 +825,17 @@ public class mainSensors extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.Label label1;
     private java.awt.Label label2;
-    private java.awt.Label label3;
     private javax.swing.JTextField txtDuration;
+    private javax.swing.JTextField txtEnabled;
     private javax.swing.JTextField txtHumidity;
     private javax.swing.JTextField txtIP;
-    private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtPass;
     private javax.swing.JTextField txtPassive;
+    private javax.swing.JTextField txtPresent;
+    private javax.swing.JTextField txtSensor;
     private javax.swing.JTextField txtTemperature;
     private javax.swing.JTextField txtUser;
     // End of variables declaration//GEN-END:variables
+
+ 
 }

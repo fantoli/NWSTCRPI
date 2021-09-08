@@ -13,6 +13,10 @@ import javax.swing.JOptionPane;
 import com.pi4j.io.gpio.Pin;
 import com.pi4j.wiringpi.Gpio;
 import com.pi4j.io.gpio.RaspiPin;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import nwstcrpi.clsPreferences;
+import nwstcrpi.clsPreferences;
 
 /**
  *
@@ -32,7 +36,7 @@ public class frmMain extends javax.swing.JFrame {
         try {
             this.txtTemperature.setText("");
             this.txtHumidity.setText("");
-            _dht22 = new clsDHT22(RaspiPin.getPinByAddress(Factory.GetPreferences().PinSensor()), Factory.GetPreferences().TempDir());
+            _dht22 = new clsDHT22(RaspiPin.getPinByAddress(Factory.GetPreferences().getDHT22_SensorPin()), Factory.GetPreferences().TempDir());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(new JFrame(), e.getMessage(), this.getTitle(), JOptionPane.ERROR_MESSAGE);
             System.exit(0);
@@ -157,9 +161,13 @@ public class frmMain extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGetDataActionPerformed
 
     private void btnOptionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnOptionsActionPerformed
-        // TODO add your handling code here:
-        mainSensors s1 = new mainSensors();
-        s1.setVisible(true);
+        try {
+            // TODO add your handling code here:
+            mainSensors s1 = new mainSensors();
+            s1.setVisible(true);
+        } catch (Exception ex) {
+            Logger.getLogger(frmMain.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_btnOptionsActionPerformed
 

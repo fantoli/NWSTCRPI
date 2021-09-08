@@ -30,6 +30,9 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import nwstcrpi.Factory;
+import nwstcrpi.clsPreferences;
+
 
 
 
@@ -176,6 +179,18 @@ public class serverConnection extends javax.swing.JFrame {
       
     }//GEN-LAST:event_txtDurationActionPerformed
 
+    public static void Preferences(){
+   
+       clsPreferences _preferences;
+       
+       Factory Factory;
+       Factory = new Factory();
+       
+       _preferences = Factory.GetPreferences();
+       
+       
+    }
+    
     private void txtDurationKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDurationKeyTyped
         char c = evt.getKeyChar();
         

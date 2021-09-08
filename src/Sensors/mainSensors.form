@@ -231,10 +231,10 @@
                           <Component id="chkShowPassword" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtDuration" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jLabel3" alignment="1" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="64" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -327,11 +327,17 @@
             <Property name="selected" type="boolean" value="true"/>
             <Property name="text" type="java.lang.String" value="Enable"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkEnableActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JCheckBox" name="chkAnonimous">
           <Properties>
             <Property name="text" type="java.lang.String" value="Anonimous"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="chkAnonimousActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel1">
           <Properties>
@@ -361,41 +367,52 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" attributes="0">
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jLabel2" alignment="0" pref="61" max="32767" attributes="0"/>
-                      <Component id="label3" max="32767" attributes="0"/>
-                  </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+              <Group type="102" alignment="0" attributes="0">
+                  <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="jComboBox2" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
-                      <Component id="txtName" alignment="0" min="-2" pref="158" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="58" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <Component id="label2" min="-2" pref="129" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="394" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <Group type="103" groupAlignment="1" attributes="0">
+                      <Group type="102" attributes="0">
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="txtSensor" max="32767" attributes="0"/>
+                              <Component id="txtPresent" max="32767" attributes="0"/>
+                              <Component id="txtEnabled" min="-2" pref="100" max="-2" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="chkPresent" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="chkEnabled" alignment="0" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
+                                  <EmptySpace min="-2" pref="68" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Component id="jLabel8" max="32767" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="txtHumidity" min="-2" pref="75" max="-2" attributes="0"/>
+                                      </Group>
+                                      <Group type="102" alignment="1" attributes="0">
+                                          <Component id="jLabel7" max="32767" attributes="0"/>
+                                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                                          <Component id="txtTemperature" min="-2" pref="75" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                              </Group>
+                              <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Component id="btnSaveReadings" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" attributes="0">
-                                  <Component id="jLabel8" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="txtHumidity" min="-2" pref="75" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="jLabel7" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" max="-2" attributes="0"/>
-                                  <Component id="txtTemperature" min="-2" pref="75" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
                           <EmptySpace min="-2" pref="354" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" attributes="0">
+                          <Component id="label2" min="-2" pref="129" max="-2" attributes="0"/>
+                          <EmptySpace max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -404,27 +421,33 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="label2" min="-2" max="-2" attributes="0"/>
-                      <Component id="jComboBox2" min="-2" max="-2" attributes="0"/>
-                      <Component id="label3" alignment="1" min="-2" max="-2" attributes="0"/>
-                  </Group>
-                  <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                  <Component id="label2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="txtTemperature" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtName" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSensor" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="txtHumidity" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtPresent" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="chkPresent" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="btnSaveReadings" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="31" max="32767" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Component id="txtEnabled" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnSaveReadings" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jLabel10" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="chkEnabled" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="69" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -435,22 +458,20 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Tahoma" size="12" style="0"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Name:"/>
+            <Property name="text" type="java.lang.String" value="Sensor Pin:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="txtName">
+        <Component class="javax.swing.JTextField" name="txtSensor">
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNameActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtSensorActionPerformed"/>
           </Events>
         </Component>
         <Component class="java.awt.Label" name="label2">
           <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Dialog" size="14" style="0"/>
+            </Property>
             <Property name="text" type="java.lang.String" value="Readings"/>
-          </Properties>
-        </Component>
-        <Component class="java.awt.Label" name="label3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Pin"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTemperature">
@@ -462,37 +483,6 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtHumidityActionPerformed"/>
           </Events>
-        </Component>
-        <Component class="javax.swing.JComboBox" name="jComboBox2">
-          <Properties>
-            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-              <StringArray count="17">
-                <StringItem index="0" value="GPIO 4"/>
-                <StringItem index="1" value="GPIO 17"/>
-                <StringItem index="2" value="GPIO 27"/>
-                <StringItem index="3" value="GPIO 22"/>
-                <StringItem index="4" value="GPIO 5"/>
-                <StringItem index="5" value="GPIO 6"/>
-                <StringItem index="6" value="GPIO 13"/>
-                <StringItem index="7" value="GPIO 19"/>
-                <StringItem index="8" value="GPIO 26"/>
-                <StringItem index="9" value="GPIO 18"/>
-                <StringItem index="10" value="GPIO 23"/>
-                <StringItem index="11" value="GPIO 24"/>
-                <StringItem index="12" value="GPIO 25"/>
-                <StringItem index="13" value="GPIO 12"/>
-                <StringItem index="14" value="GPIO 16"/>
-                <StringItem index="15" value="GPIO 20"/>
-                <StringItem index="16" value="GPIO 21"/>
-              </StringArray>
-            </Property>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jComboBox2ActionPerformed"/>
-          </Events>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
-          </AuxValues>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel7">
           <Properties>
@@ -518,6 +508,30 @@
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSaveReadingsActionPerformed"/>
           </Events>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel9">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="DHT22 Attached (present):"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtPresent">
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel10">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Enabled:"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JTextField" name="txtEnabled">
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="chkPresent">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="present"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JCheckBox" name="chkEnabled">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="enabled"/>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
