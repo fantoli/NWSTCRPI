@@ -93,9 +93,9 @@ public class mainSensors extends javax.swing.JFrame {
         
           
        Boolean isSelected = chkPresent.isSelected();
-       
+//       
 //       if(chkPresent.isSelected()){
-//           chkPresent.setSelected(_preferences.setDHT22_Enabled(T));
+//           chkPresent.setSelected(_preferences.setDHT22_Enabled());
 //       } else {
 //           chkPresent.setSelected(_preferences.setDHT22_Enabled(Boolean.getBoolean(isSelected)));
 //       }
