@@ -399,14 +399,14 @@
                               </Group>
                               <Component id="txtSensor" min="-2" pref="100" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="jLabel7" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtTemperature" min="-2" pref="101" max="-2" attributes="0"/>
                               </Group>
-                              <Group type="102" alignment="1" attributes="0">
+                              <Group type="102" attributes="0">
                                   <Component id="jLabel8" max="32767" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="txtHumidity" min="-2" pref="101" max="-2" attributes="0"/>
@@ -456,10 +456,13 @@
                               <Component id="txtSensorport" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
                               <Component id="txtBoardResistance" alignment="0" min="-2" pref="105" max="-2" attributes="0"/>
                               <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="jTextField1" max="32767" attributes="0"/>
+                                  <Component id="txtSensorResistance" max="32767" attributes="0"/>
                                   <Component id="txtMQ2Enabled" pref="105" max="32767" attributes="0"/>
                               </Group>
-                              <Component id="btnSaveReadings" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
+                                  <Component id="btnSaveReadings" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
@@ -520,7 +523,7 @@
                       <Component id="txtMQ2CO" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel19" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtSensorResistance" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -598,7 +601,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel9">
           <Properties>
-            <Property name="text" type="java.lang.String" value="DHT22 Attached (present):"/>
+            <Property name="text" type="java.lang.String" value="Present:"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPresent">
@@ -678,7 +681,7 @@
             <Property name="text" type="java.lang.String" value="MQ2 Sensor Resistance:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextField1">
+        <Component class="javax.swing.JTextField" name="txtSensorResistance">
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel20">
           <Properties>

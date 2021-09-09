@@ -65,10 +65,10 @@ public class mainSensors extends javax.swing.JFrame {
             this.txtMQ2SMOKE.setText(String.valueOf(_preferences.getMQ2_SensorNumber_SMOKE()));
             this.txtSensorport.setText(String.valueOf(_preferences.getMQ2_SensorPort()));
             this.txtBoardResistance.setText(String.valueOf(_preferences.getMQ2_SensorResistance()));
-            this.txtMQ2Enabled.setText(String.valueOf(_preferences.getMQ2_Enabled()));
+            this.txtSensorResistance.setText(String.valueOf(_preferences.getMQ2_SensorResistance()));
             
+            this.txtMQ2Enabled.setText(String.valueOf(_preferences.getMQ2_Enabled()));
             this.txtEnabled.setText(String.valueOf(_preferences.getDHT22_Enabled()));
-            this.txtEnabled.setText(String.valueOf(_preferences.getMQ2_Present()));
             
    
            
@@ -102,12 +102,12 @@ public class mainSensors extends javax.swing.JFrame {
           
        Boolean isSelected = chkPresent.isSelected();
        
-//       if(chkPresent.isSelected()){
+//       if(isSelected){
 //           chkPresent.setSelected(_preferences.setDHT22_Enabled());
 //       } else {
 //           chkPresent.setSelected(_preferences.setDHT22_Enabled(Boolean.getBoolean(isSelected)));
 //       }
-//       
+       
        
         try {
             _preferences.Save();
@@ -178,7 +178,7 @@ public class mainSensors extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         txtBoardResistance = new javax.swing.JTextField();
         jLabel19 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
+        txtSensorResistance = new javax.swing.JTextField();
         jLabel20 = new javax.swing.JLabel();
         txtMQ2Enabled = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
@@ -405,7 +405,7 @@ public class mainSensors extends javax.swing.JFrame {
             }
         });
 
-        jLabel9.setText("DHT22 Attached (present):");
+        jLabel9.setText("Present:");
 
         jLabel10.setText("Enabled:");
 
@@ -460,13 +460,13 @@ public class mainSensors extends javax.swing.JFrame {
                                     .addComponent(chkPresent)
                                     .addComponent(chkEnabled)))
                             .addComponent(txtSensor, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(37, 37, 37)
+                        .addGap(63, 63, 63)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtTemperature, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtHumidity, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -503,9 +503,11 @@ public class mainSensors extends javax.swing.JFrame {
                             .addComponent(txtSensorport, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtBoardResistance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jTextField1)
+                                .addComponent(txtSensorResistance)
                                 .addComponent(txtMQ2Enabled, javax.swing.GroupLayout.DEFAULT_SIZE, 105, Short.MAX_VALUE))
-                            .addComponent(btnSaveReadings, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGap(15, 15, 15)
+                                .addComponent(btnSaveReadings)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jLabel12)
@@ -554,7 +556,7 @@ public class mainSensors extends javax.swing.JFrame {
                     .addComponent(txtMQ2CO, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel15)
                     .addComponent(jLabel19)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSensorResistance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel16)
@@ -655,10 +657,7 @@ public class mainSensors extends javax.swing.JFrame {
             Attr attr = doc.createAttribute("id");
             attr.setValue("config");
             elemento1.setAttributeNode(attr);
-            //Con name
-            Element name = doc.createElement("name");
-            name.setTextContent(txtSensor.getText());
-            rootElement.appendChild(name);
+            
             //Con frequency
             Element temperature = doc.createElement("temperature");
             temperature.setTextContent(txtTemperature.getText());
@@ -667,6 +666,51 @@ public class mainSensors extends javax.swing.JFrame {
             Element humidity = doc.createElement("humidity");
             humidity.setTextContent(txtHumidity.getText());
             rootElement.appendChild(humidity);
+            //Con sensor pin
+            Element pin = doc.createElement("sensorPin");
+            pin.setTextContent(txtSensor.getText());
+            rootElement.appendChild(pin);
+            //Con present
+            Element present = doc.createElement("DHT22_present");
+            present.setTextContent(txtPresent.getText());
+            rootElement.appendChild(humidity);
+            //Con enabled
+            Element enabled = doc.createElement("enabled");
+            enabled.setTextContent(txtEnabled.getText());
+            rootElement.appendChild(enabled);
+            //Con MQ2Present
+            Element mq2present = doc.createElement("MQ2Present");
+            mq2present.setTextContent(txtMQ2present.getText());
+            rootElement.appendChild(mq2present);
+            //Con MQ2SensorNumberLPG
+            Element mq2SensorLPG = doc.createElement("MQ2SensorLPG");
+            mq2SensorLPG.setTextContent(txtMQ2LPG.getText());
+            rootElement.appendChild(mq2SensorLPG);
+            //Con MQ2SensorNumberCO
+            Element mq2SensorCO = doc.createElement("MQ2SensorCO");
+            mq2SensorCO.setTextContent(txtMQ2CO.getText());
+            rootElement.appendChild(mq2SensorCO);
+            //Con MQ2SensorNumberSMOKE
+            Element mq2SensorSMOKE = doc.createElement("MQ2SensorSMOKE");
+            mq2SensorSMOKE.setTextContent(txtMQ2SMOKE.getText());
+            rootElement.appendChild(mq2SensorSMOKE);
+            //Con MQ2SensorPort
+            Element mq2SensorPort = doc.createElement("MQ2SensorPort");
+            mq2SensorPort.setTextContent(txtSensorport.getText());
+            rootElement.appendChild(mq2SensorPort);
+            //Con MQ2BoardResistance
+            Element mq2BoardResistance = doc.createElement("MQ2BoardResistance");
+            mq2BoardResistance.setTextContent(txtBoardResistance.getText());
+            rootElement.appendChild(mq2BoardResistance);
+            //Con MQ2SensorResistance
+            Element mq2SensorResistance = doc.createElement("MQ2SensorResistance");
+            mq2SensorResistance.setTextContent(txtSensorResistance.getText());
+            rootElement.appendChild(mq2SensorResistance);
+            //Con MQ2Enabled
+            Element mq2Enabled = doc.createElement("MQ2Enabled");
+            mq2Enabled.setTextContent(txtMQ2Enabled.getText());
+            rootElement.appendChild(mq2Enabled);
+            
             //Se escribe el contenido del XML en un archivo
             //Para realizar cualquiera de esas operaciones, es necesario crear previamente un 
             //transformador al que se le indique el documento y el destino que se le va a dar.
@@ -943,7 +987,6 @@ public class mainSensors extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     private java.awt.Label label1;
     private java.awt.Label label2;
     private javax.swing.JTextField txtBoardResistance;
@@ -960,6 +1003,7 @@ public class mainSensors extends javax.swing.JFrame {
     private javax.swing.JTextField txtPassive;
     private javax.swing.JTextField txtPresent;
     private javax.swing.JTextField txtSensor;
+    private javax.swing.JTextField txtSensorResistance;
     private javax.swing.JTextField txtSensorport;
     private javax.swing.JTextField txtTemperature;
     private javax.swing.JTextField txtUser;
