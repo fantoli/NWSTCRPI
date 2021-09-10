@@ -42,16 +42,25 @@ public class mainSensors extends javax.swing.JFrame {
      * Creates new form mainSensors
      */
     
+       
+        Factory Factory = new Factory();
+       
+        clsPreferences _preferences = Factory.GetPreferences();
+    
    
     public mainSensors() throws Exception {
         initComponents();
-        clsPreferences _preferences;
+        
        
-        Factory Factory;
-        Factory = new Factory();
-       
-        _preferences = Factory.GetPreferences();
-       
+        if (_preferences.getDHT22_Enabled()){
+           _preferences.setDHT22_Enabled(false);
+           System.out.println(_preferences.getDHT22_Enabled());
+        }
+        else{
+           _preferences.setDHT22_Enabled(true);
+           System.out.println(_preferences.getDHT22_Enabled());
+        }
+        
         
         try {
             this.txtPresent.setText(String.valueOf(_preferences.getDHT22_Present()));
@@ -206,20 +215,21 @@ public class mainSensors extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        label1.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        label1.setForeground(new java.awt.Color(255, 255, 255));
+        label1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        label1.setForeground(new java.awt.Color(0, 0, 0));
         label1.setText("Server connection");
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel4.setText("Server:");
 
-        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel5.setText("User:");
 
-        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel6.setText("Password:");
 
         txtIP.addActionListener(new java.awt.event.ActionListener() {
@@ -250,6 +260,7 @@ public class mainSensors extends javax.swing.JFrame {
 
         jLabel11.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
 
+        chkShowPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         chkShowPassword.setText("Show/Hide password");
         chkShowPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -257,6 +268,7 @@ public class mainSensors extends javax.swing.JFrame {
             }
         });
 
+        chkEnable.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         chkEnable.setSelected(true);
         chkEnable.setText("Enable");
         chkEnable.addActionListener(new java.awt.event.ActionListener() {
@@ -265,6 +277,7 @@ public class mainSensors extends javax.swing.JFrame {
             }
         });
 
+        chkAnonimous.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         chkAnonimous.setText("Anonimous");
         chkAnonimous.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -272,8 +285,10 @@ public class mainSensors extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel1.setText("Passive:");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Duration (s)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -366,7 +381,7 @@ public class mainSensors extends javax.swing.JFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Sensor Pin:");
 
         txtSensor.addActionListener(new java.awt.event.ActionListener() {
@@ -375,8 +390,8 @@ public class mainSensors extends javax.swing.JFrame {
             }
         });
 
-        label2.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        label2.setForeground(new java.awt.Color(255, 255, 255));
+        label2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        label2.setForeground(new java.awt.Color(0, 0, 0));
         label2.setText("Sensor propieties");
 
         txtTemperature.addActionListener(new java.awt.event.ActionListener() {
@@ -391,10 +406,10 @@ public class mainSensors extends javax.swing.JFrame {
             }
         });
 
-        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel7.setText("Temperature:");
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel8.setText("Humidity:");
         jLabel8.setToolTipText("");
 
@@ -405,32 +420,55 @@ public class mainSensors extends javax.swing.JFrame {
             }
         });
 
+        jLabel9.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel9.setText("Present:");
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel10.setText("Enabled:");
 
+        chkPresent.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         chkPresent.setText("present");
+        chkPresent.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkPresentActionPerformed(evt);
+            }
+        });
 
+        chkEnabled.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         chkEnabled.setText("enabled");
+        chkEnabled.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                chkEnabledActionPerformed(evt);
+            }
+        });
 
-        jLabel12.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setBackground(new java.awt.Color(0, 0, 0));
+        jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("MQ2 propieties");
 
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel13.setText("MQ2 Present:");
 
+        jLabel14.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel14.setText("MQ2 Sensor Number LPG:");
 
+        jLabel15.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel15.setText("MQ2 Sensor Number CO:");
 
+        jLabel16.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel16.setText("MQ2 Sensor Number SMOKE:");
 
+        jLabel17.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel17.setText("MQ2 Sensorport:");
 
+        jLabel18.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel18.setText("MQ2 Board Resistance:");
 
+        jLabel19.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel19.setText("MQ2 Sensor Resistance:");
 
+        jLabel20.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel20.setText("MQ2 Enabled:");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -485,20 +523,15 @@ public class mainSensors extends javax.swing.JFrame {
                             .addComponent(txtMQ2SMOKE, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(56, 56, 56)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel19)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel20)
-                                        .addGap(57, 57, 57)))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jLabel18)
-                                    .addGap(10, 10, 10)))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel17)
-                                .addGap(42, 42, 42)))
+                                .addComponent(jLabel18)
+                                .addGap(10, 10, 10))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel19)
+                                    .addComponent(jLabel17)
+                                    .addComponent(jLabel20))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(txtSensorport, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtBoardResistance, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -775,13 +808,58 @@ public class mainSensors extends javax.swing.JFrame {
                     attr.setValue("config");
                     elemento1.setAttributeNode(attr);
 
+                    //Con frequency
                     Element temperature = doc.createElement("temperature");
                     temperature.setTextContent(txtTemperature.getText());
                     rootElement.appendChild(temperature);
-
+                    //Con duration
                     Element humidity = doc.createElement("humidity");
                     humidity.setTextContent(txtHumidity.getText());
                     rootElement.appendChild(humidity);
+                    //Con sensor pin
+                    Element pin = doc.createElement("sensorPin");
+                    pin.setTextContent(txtSensor.getText());
+                    rootElement.appendChild(pin);
+                    //Con present
+                    Element present = doc.createElement("DHT22_present");
+                    present.setTextContent(txtPresent.getText());
+                    rootElement.appendChild(humidity);
+                    //Con enabled
+                    Element enabled = doc.createElement("enabled");
+                    enabled.setTextContent(txtEnabled.getText());
+                    rootElement.appendChild(enabled);
+                    //Con MQ2Present
+                    Element mq2present = doc.createElement("MQ2Present");
+                    mq2present.setTextContent(txtMQ2present.getText());
+                    rootElement.appendChild(mq2present);
+                    //Con MQ2SensorNumberLPG
+                    Element mq2SensorLPG = doc.createElement("MQ2SensorLPG");
+                    mq2SensorLPG.setTextContent(txtMQ2LPG.getText());
+                    rootElement.appendChild(mq2SensorLPG);
+                    //Con MQ2SensorNumberCO
+                    Element mq2SensorCO = doc.createElement("MQ2SensorCO");
+                    mq2SensorCO.setTextContent(txtMQ2CO.getText());
+                    rootElement.appendChild(mq2SensorCO);
+                    //Con MQ2SensorNumberSMOKE
+                    Element mq2SensorSMOKE = doc.createElement("MQ2SensorSMOKE");
+                    mq2SensorSMOKE.setTextContent(txtMQ2SMOKE.getText());
+                    rootElement.appendChild(mq2SensorSMOKE);
+                    //Con MQ2SensorPort
+                    Element mq2SensorPort = doc.createElement("MQ2SensorPort");
+                    mq2SensorPort.setTextContent(txtSensorport.getText());
+                    rootElement.appendChild(mq2SensorPort);
+                    //Con MQ2BoardResistance
+                    Element mq2BoardResistance = doc.createElement("MQ2BoardResistance");
+                    mq2BoardResistance.setTextContent(txtBoardResistance.getText());
+                    rootElement.appendChild(mq2BoardResistance);
+                    //Con MQ2SensorResistance
+                    Element mq2SensorResistance = doc.createElement("MQ2SensorResistance");
+                    mq2SensorResistance.setTextContent(txtSensorResistance.getText());
+                    rootElement.appendChild(mq2SensorResistance);
+                    //Con MQ2Enabled
+                    Element mq2Enabled = doc.createElement("MQ2Enabled");
+                    mq2Enabled.setTextContent(txtMQ2Enabled.getText());
+                    rootElement.appendChild(mq2Enabled);
 
                     TransformerFactory transformerFactory = TransformerFactory.newInstance();
                     Transformer transformer = transformerFactory.newTransformer();
@@ -834,6 +912,7 @@ public class mainSensors extends javax.swing.JFrame {
             client.disconnect();
 
             JOptionPane.showMessageDialog(null, "Conexión realizada con éxito");
+            JOptionPane.showMessageDialog(btnConnect, password);
         } catch (IOException ioe) {
             JOptionPane.showMessageDialog(null, "No pudo conectarse con el servidor con los datos: IP = " + ftp + "; User = " + user + "; Pass = " + password);
         }
@@ -907,6 +986,24 @@ public class mainSensors extends javax.swing.JFrame {
         }
     });
     }//GEN-LAST:event_chkAnonimousActionPerformed
+
+    private void chkEnabledActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkEnabledActionPerformed
+        if (_preferences.getDHT22_Enabled()){
+            chkEnabled.setSelected(true);
+        }
+        else{
+            chkEnabled.setSelected(false);
+        }
+    }//GEN-LAST:event_chkEnabledActionPerformed
+
+    private void chkPresentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chkPresentActionPerformed
+        if (_preferences.getDHT22_Present()){
+            chkPresent.setSelected(true);
+        }
+        else{
+            chkPresent.setSelected(false);
+        }
+    }//GEN-LAST:event_chkPresentActionPerformed
 
     /**
      * @param args the command line arguments
